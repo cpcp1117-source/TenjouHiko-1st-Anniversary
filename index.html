@@ -368,14 +368,11 @@
 
     .track-placeholder button {
       flex: 0 0 auto;
-      min-height: 2.75rem;
-      padding: .55rem 1rem;
       border: 1px solid var(--line);
       border-radius: 999px;
       color: var(--muted);
       background: transparent;
       font: inherit;
-      cursor: not-allowed;
     }
 
     .chapter-footer {
@@ -1659,13 +1656,11 @@
     }
 
     .track-toggle {
-      position: relative;
       flex: 0 0 auto;
       display: grid;
       place-items: center;
-      width: 3.25rem;
-      height: 3.25rem;
-      overflow: hidden;
+      width: 2.75rem;
+      height: 2.75rem;
       padding: 0;
       cursor: pointer;
       transition: border-color .3s ease;
@@ -1681,22 +1676,8 @@
       opacity: .5;
     }
 
-    .track-glow {
-      position: absolute;
-      inset: -25%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(191, 233, 255, .6) 0%, transparent 68%);
-      filter: blur(9px);
-      opacity: .22;
-      transform: translate(-6%, 8%) scale(.9);
-      animation: track-glow-drift 6s ease-in-out infinite;
-      animation-play-state: paused;
-    }
-
     .track-icon {
-      position: relative;
-      z-index: 1;
-      font-size: .95rem;
+      font-size: .9rem;
       line-height: 1;
     }
 
@@ -1704,25 +1685,45 @@
       border-color: var(--ice, #bfe9ff);
     }
 
-    .track-placeholder[data-audio-state="playing"] .track-glow {
-      opacity: .58;
-      animation-play-state: running;
-    }
-
     .track-state-label {
+      flex: 0 0 auto;
       font-size: .8rem;
       color: inherit;
       opacity: .65;
     }
 
-    @keyframes track-glow-drift {
-      0%, 100% { transform: translate(-6%, 8%) scale(.9); opacity: .28; }
-      50% { transform: translate(5%, -5%) scale(1.08); opacity: .6; }
+    .track-progress {
+      position: relative;
+      flex: 1 1 auto;
+      min-width: 60px;
+      height: 1.5rem;
+      cursor: pointer;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .track-glow { animation: none; }
-      .track-placeholder[data-audio-state="playing"] .track-glow { opacity: .5; }
+    .track-progress-track,
+    .track-progress-fill {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 1px;
+      background: currentColor;
+      transform: translateY(-50%);
+    }
+
+    .track-progress-track {
+      right: 0;
+      opacity: .28;
+    }
+
+    .track-progress-fill {
+      width: 0%;
+    }
+
+    .track-progress:hover .track-progress-track,
+    .track-progress:hover .track-progress-fill,
+    .track-progress:focus-visible .track-progress-track,
+    .track-progress:focus-visible .track-progress-fill {
+      height: 2px;
     }
   </style>
 </head>
@@ -1790,9 +1791,12 @@
             <div><strong>印象曲 01</strong><small>相遇Encounter.mp3 → 相遇Encounter.wav</small></div>
             <div class="track-control">
               <button class="track-toggle" type="button" aria-label="播放印象曲 01">
-                <span class="track-glow" aria-hidden="true"></span>
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
+              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 01 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <span class="track-progress-track" aria-hidden="true"></span>
+                <span class="track-progress-fill" aria-hidden="true"></span>
+              </div>
               <span class="track-state-label">尚未播放</span>
               <audio class="track-audio" preload="none">
                 <source src="assets/audio/相遇Encounter.mp3" type="audio/mpeg">
@@ -1850,9 +1854,12 @@
             <div><strong>印象曲 02</strong><small>相識Acquaintance.mp3 → 相識Acquaintance.wav</small></div>
             <div class="track-control">
               <button class="track-toggle" type="button" aria-label="播放印象曲 02">
-                <span class="track-glow" aria-hidden="true"></span>
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
+              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 02 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <span class="track-progress-track" aria-hidden="true"></span>
+                <span class="track-progress-fill" aria-hidden="true"></span>
+              </div>
               <span class="track-state-label">尚未播放</span>
               <audio class="track-audio" preload="none">
                 <source src="assets/audio/相識Acquaintance.mp3" type="audio/mpeg">
@@ -1910,9 +1917,12 @@
             <div><strong>印象曲 03</strong><small>相處Accompany.mp3 → 相處Accompany.wav</small></div>
             <div class="track-control">
               <button class="track-toggle" type="button" aria-label="播放印象曲 03">
-                <span class="track-glow" aria-hidden="true"></span>
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
+              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 03 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <span class="track-progress-track" aria-hidden="true"></span>
+                <span class="track-progress-fill" aria-hidden="true"></span>
+              </div>
               <span class="track-state-label">尚未播放</span>
               <audio class="track-audio" preload="none">
                 <source src="assets/audio/相處Accompany.mp3" type="audio/mpeg">
@@ -2067,6 +2077,23 @@
       }, { passive: true });
 
       const trackAudios = [...document.querySelectorAll('.track-audio')];
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const updateTrackProgress = (audio, container) => {
+        const progress = container.querySelector('.track-progress');
+        const fill = container.querySelector('.track-progress-fill');
+        const ratio = audio.duration ? audio.currentTime / audio.duration : 0;
+        const pct = Math.min(100, Math.max(0, ratio * 100));
+        fill.style.width = `${pct}%`;
+        progress.setAttribute('aria-valuenow', Math.round(pct));
+      };
+
+      const seekFromClientX = (audio, progress, clientX) => {
+        if (!audio.duration) return;
+        const rect = progress.getBoundingClientRect();
+        const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+        audio.currentTime = ratio * audio.duration;
+      };
 
       const TRACK_STATE_TEXT = {
         idle: { icon: '▶', label: '尚未播放', verb: '播放' },
@@ -2096,6 +2123,7 @@
       trackAudios.forEach((audio) => {
         const container = audio.closest('.track-placeholder');
         const toggle = container.querySelector('.track-toggle');
+        const progress = container.querySelector('.track-progress');
         setTrackState(container, 'idle');
 
         toggle.addEventListener('click', () => {
@@ -2103,6 +2131,7 @@
             trackAudios.forEach((other) => {
               if (other !== audio && !other.paused) other.pause();
             });
+            if (audio.ended) audio.currentTime = 0;
             audio.play().catch(() => setTrackState(container, 'unavailable'));
 
             let sourceChecks = 0;
@@ -2128,6 +2157,33 @@
         });
         audio.addEventListener('ended', () => setTrackState(container, 'ended'));
         audio.addEventListener('error', () => setTrackState(container, 'unavailable'));
+        audio.addEventListener('timeupdate', () => updateTrackProgress(audio, container));
+        audio.addEventListener('loadedmetadata', () => updateTrackProgress(audio, container));
+
+        let seeking = false;
+        const seekTo = (clientX) => seekFromClientX(audio, progress, clientX);
+
+        progress.addEventListener('pointerdown', (event) => {
+          seeking = true;
+          progress.setPointerCapture(event.pointerId);
+          seekTo(event.clientX);
+        });
+        progress.addEventListener('pointermove', (event) => {
+          if (seeking) seekTo(event.clientX);
+        });
+        progress.addEventListener('pointerup', () => { seeking = false; });
+        progress.addEventListener('pointercancel', () => { seeking = false; });
+        progress.addEventListener('keydown', (event) => {
+          if (!audio.duration) return;
+          if (event.key === 'ArrowRight') {
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+          } else if (event.key === 'ArrowLeft') {
+            audio.currentTime = Math.max(0, audio.currentTime - 5);
+          } else {
+            return;
+          }
+          event.preventDefault();
+        });
       });
 
       const scenes = [...document.querySelectorAll('.scene')];
@@ -2135,7 +2191,6 @@
       const veil = document.querySelector('.transition-veil');
       const veilKicker = document.querySelector('.transition-kicker');
       const veilTitle = document.querySelector('.transition-title');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let currentScene = document.querySelector('.scene:not([hidden])');
       let changing = false;
 
