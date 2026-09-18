@@ -2,7 +2,7 @@
 
 ## Status
 
-`In Review`
+`Visual MVP In Review`
 
 ## Implemented
 
@@ -16,6 +16,11 @@
 - 三組 MP3 / WAV 固定檔名，但播放器仍為不可播放預留狀態。
 - 基礎鍵盤焦點與 reduced motion 支援。
 - 冰藍、白、淡金與柔軟信箋卡片的初步視覺語言。
+- 選定提案 3「極光布面故事書」作為視覺真相。
+- 封面使用可承載 live HTML 的空白故事書背景。
+- 第一章使用同風格的刺繡布面書頁背景與三個圖片位置。
+- 封面內容依序浮現，主按鈕具有柔和邀請光暈。
+- 開信轉場改為書頁背景揭幕與章名顯示。
 
 ## Automated Static Checks
 
@@ -30,7 +35,7 @@
 
 ## Browser Verification
 
-`Pending`
+`Blocked — see design-qa.md`
 
 Playwright CLI 在 Windows 環境啟動瀏覽器工作階段時沒有回傳可操作 session，因此本文件不能宣稱互動與響應式瀏覽器 QA 已通過。使用者已在 in-app browser 檢視前一版；更新後仍需重新整理並人工確認。
 

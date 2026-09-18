@@ -8,14 +8,15 @@
 
 ## MVP Status
 
-目前是 **MVP 1 — Content Skeleton / Review**：
+目前是 **Visual MVP — Cover + Chapter 01 / Review**：
 
 - 已定義 MVP 階段與驗證門檻。
 - 已固定三首音訊與九張故事圖片的預留檔名。
 - 音訊不納入本階段版本控制，避免在未確認前上傳。
 - 已建立單一 `index.html` 的封面、三章故事、終章與章節轉場。
 - 一次只呈現一幕，必須由讀者點擊後才進入下一章。
-- 正等待內容語氣與章節節奏確認；播放器與正式視覺仍屬後續 MVP。
+- 已依選定的「極光布面故事書」提案完成封面與第一章視覺資產。
+- 正等待封面、開信轉場與第一章的瀏覽器確認；後兩章、終章與播放器仍屬後續 MVP。
 
 詳細規劃請見 [docs/MVP_PLAN.md](docs/MVP_PLAN.md)；內容與素材對照請見 [docs/CONTENT_AND_ASSET_PLAN.md](docs/CONTENT_AND_ASSET_PLAN.md)。
 
