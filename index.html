@@ -753,10 +753,6 @@
         flex-direction: column;
       }
 
-      .track-placeholder button {
-        width: 100%;
-      }
-
       .chapter-footer {
         text-align: center;
       }
@@ -1144,6 +1140,23 @@
 
     .story-figure img { transition: transform .6s ease; }
     .story-figure:hover img { transform: scale(1.02); }
+
+    .story-figure-trigger {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: zoom-in;
+      font: inherit;
+      color: inherit;
+    }
+
+    .story-figure.is-missing .story-figure-trigger {
+      cursor: default;
+      pointer-events: none;
+    }
 
     .image-fallback,
     .encounter .image-fallback {
@@ -1541,6 +1554,176 @@
       .scene.scene-entering *,
       .scene.scene-leaving * { animation: none !important; }
     }
+
+    /* MVP B: scroll-revealed gallery images + switchable lightbox. */
+    .js-gallery-reveal .story-figure:nth-child(n + 2) {
+      opacity: 0;
+      transform: translateY(14px) scale(1.02);
+      transition: opacity .9s ease, transform .9s ease;
+    }
+
+    .js-gallery-reveal .story-figure.is-revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .lightbox {
+      position: fixed;
+      z-index: 200;
+      inset: 0;
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: rgba(8, 14, 26, .94);
+      color: #fffdf9;
+    }
+
+    .lightbox[open] {
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox::backdrop {
+      background: rgba(0, 0, 0, .5);
+    }
+
+    .lightbox--encounter { background: rgba(42, 28, 18, .94); }
+    .lightbox--acquaintance { background: rgba(20, 26, 44, .94); }
+    .lightbox--accompany { background: rgba(24, 32, 40, .94); }
+
+    .lightbox-figure {
+      position: relative;
+      display: grid;
+      gap: .75rem;
+      width: min(92vw, 64rem);
+      justify-items: center;
+      margin: 0;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 74vh;
+      border-radius: .25rem;
+      object-fit: contain;
+    }
+
+    .lightbox-caption {
+      margin: 0;
+      color: rgba(255, 255, 255, .82);
+      font-family: system-ui, sans-serif;
+      font-size: .85rem;
+      letter-spacing: .05em;
+      text-align: center;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid rgba(255, 255, 255, .4);
+      border-radius: 999px;
+      color: #fffdf9;
+      background: rgba(8, 14, 26, .55);
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .lightbox-close { top: .75rem; right: .75rem; }
+    .lightbox-prev { top: 50%; left: .75rem; transform: translateY(-50%); }
+    .lightbox-next { top: 50%; right: .75rem; transform: translateY(-50%); }
+    .lightbox-prev[hidden],
+    .lightbox-next[hidden] { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js-gallery-reveal .story-figure:nth-child(n + 2) {
+        transform: none;
+        transition: opacity .6s ease;
+      }
+    }
+
+    /* MVP C: track player with a play-state light bloom. */
+    .track-control {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+    }
+
+    .track-toggle {
+      position: relative;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 3.25rem;
+      height: 3.25rem;
+      overflow: hidden;
+      padding: 0;
+      cursor: pointer;
+      transition: border-color .3s ease;
+    }
+
+    .track-toggle:hover,
+    .track-toggle:focus-visible {
+      border-color: var(--ice, #bfe9ff);
+    }
+
+    .track-toggle:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    .track-glow {
+      position: absolute;
+      inset: -25%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(191, 233, 255, .6) 0%, transparent 68%);
+      filter: blur(9px);
+      opacity: .22;
+      transform: translate(-6%, 8%) scale(.9);
+      animation: track-glow-drift 6s ease-in-out infinite;
+      animation-play-state: paused;
+    }
+
+    .track-icon {
+      position: relative;
+      z-index: 1;
+      font-size: .95rem;
+      line-height: 1;
+    }
+
+    .track-placeholder[data-audio-state="playing"] .track-toggle {
+      border-color: var(--ice, #bfe9ff);
+    }
+
+    .track-placeholder[data-audio-state="playing"] .track-glow {
+      opacity: .58;
+      animation-play-state: running;
+    }
+
+    .track-state-label {
+      font-size: .8rem;
+      color: inherit;
+      opacity: .65;
+    }
+
+    @keyframes track-glow-drift {
+      0%, 100% { transform: translate(-6%, 8%) scale(.9); opacity: .28; }
+      50% { transform: translate(5%, -5%) scale(1.08); opacity: .6; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .track-glow { animation: none; }
+      .track-placeholder[data-audio-state="playing"] .track-glow { opacity: .5; }
+    }
   </style>
 </head>
 <body>
@@ -1581,15 +1764,21 @@
 
         <div class="story-gallery" aria-label="相遇故事圖片">
           <figure class="story-figure">
-            <img src="assets/images/encounter/scene-01.png" alt="光芒照亮初次相遇的景象" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/encounter/scene-01.png" alt="光芒照亮初次相遇的景象" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相遇 · 初見</strong><small>encounter/scene-01.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/encounter/scene-02.png" alt="柔和光線與琴鍵交織，象徵留下的溫柔印象" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/encounter/scene-02.png" alt="柔和光線與琴鍵交織，象徵留下的溫柔印象" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相遇 · 印象</strong><small>encounter/scene-02.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/encounter/scene-03.png" alt="極光延伸向遠方，象徵期待再次相遇" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/encounter/scene-03.png" alt="極光延伸向遠方，象徵期待再次相遇" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相遇 · 期待</strong><small>encounter/scene-03.png</small></span></figcaption>
           </figure>
         </div>
@@ -1599,7 +1788,17 @@
           <p>如果那一刻能被寫成旋律，也許會是這樣的聲音。</p>
           <div class="track-placeholder">
             <div><strong>印象曲 01</strong><small>track-01.mp3 → track-01.wav</small></div>
-            <button type="button" disabled>曲目尚未放入</button>
+            <div class="track-control">
+              <button class="track-toggle" type="button" aria-label="播放印象曲 01">
+                <span class="track-glow" aria-hidden="true"></span>
+                <span class="track-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="track-state-label">尚未播放</span>
+              <audio class="track-audio" preload="none">
+                <source src="assets/audio/track-01.mp3" type="audio/mpeg">
+                <source src="assets/audio/track-01.wav" type="audio/wav">
+              </audio>
+            </div>
           </div>
         </section>
 
@@ -1625,15 +1824,21 @@
 
         <div class="story-gallery" aria-label="相識故事圖片">
           <figure class="story-figure">
-            <img src="assets/images/acquaintance/scene-01.png" alt="兩道訊息般的光點在夜空相遇" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/acquaintance/scene-01.png" alt="兩道訊息般的光點在夜空相遇" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相識 · 互動</strong><small>acquaintance/scene-01.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/acquaintance/scene-02.png" alt="夜晚螢幕映照出溫暖陪伴的景象" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/acquaintance/scene-02.png" alt="夜晚螢幕映照出溫暖陪伴的景象" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相識 · 分享</strong><small>acquaintance/scene-02.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/acquaintance/scene-03.png" alt="星點逐漸連成一條溫柔軌跡" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/acquaintance/scene-03.png" alt="星點逐漸連成一條溫柔軌跡" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相識 · 靠近</strong><small>acquaintance/scene-03.png</small></span></figcaption>
           </figure>
         </div>
@@ -1643,7 +1848,17 @@
           <p>那些一點一滴被收藏的片刻，也在不知不覺間譜成了一段旋律。</p>
           <div class="track-placeholder">
             <div><strong>印象曲 02</strong><small>track-02.mp3 → track-02.wav</small></div>
-            <button type="button" disabled>曲目尚未放入</button>
+            <div class="track-control">
+              <button class="track-toggle" type="button" aria-label="播放印象曲 02">
+                <span class="track-glow" aria-hidden="true"></span>
+                <span class="track-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="track-state-label">尚未播放</span>
+              <audio class="track-audio" preload="none">
+                <source src="assets/audio/track-02.mp3" type="audio/mpeg">
+                <source src="assets/audio/track-02.wav" type="audio/wav">
+              </audio>
+            </div>
           </div>
         </section>
 
@@ -1669,15 +1884,21 @@
 
         <div class="story-gallery" aria-label="相處故事圖片">
           <figure class="story-figure">
-            <img src="assets/images/accompany/scene-01.png" alt="安靜日常中亮著柔光的房間" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/accompany/scene-01.png" alt="安靜日常中亮著柔光的房間" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相處 · 日常</strong><small>accompany/scene-01.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/accompany/scene-02.png" alt="雨夜窗邊被月光包圍的身影" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/accompany/scene-02.png" alt="雨夜窗邊被月光包圍的身影" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相處 · 理解</strong><small>accompany/scene-02.png</small></span></figcaption>
           </figure>
           <figure class="story-figure">
-            <img src="assets/images/accompany/scene-03.png" alt="兩道身影望向遠方不熄的燈火" loading="lazy" decoding="async">
+            <button class="story-figure-trigger" type="button">
+              <img src="assets/images/accompany/scene-03.png" alt="兩道身影望向遠方不熄的燈火" loading="lazy" decoding="async">
+            </button>
             <figcaption class="image-fallback"><span><strong>相處 · 陪伴</strong><small>accompany/scene-03.png</small></span></figcaption>
           </figure>
         </div>
@@ -1687,7 +1908,17 @@
           <p>不必打擾，也不必回應；只是想讓這段旋律輕輕說一聲，我會在這裡。</p>
           <div class="track-placeholder">
             <div><strong>印象曲 03</strong><small>track-03.mp3 → track-03.wav</small></div>
-            <button type="button" disabled>曲目尚未放入</button>
+            <div class="track-control">
+              <button class="track-toggle" type="button" aria-label="播放印象曲 03">
+                <span class="track-glow" aria-hidden="true"></span>
+                <span class="track-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="track-state-label">尚未播放</span>
+              <audio class="track-audio" preload="none">
+                <source src="assets/audio/track-03.mp3" type="audio/mpeg">
+                <source src="assets/audio/track-03.wav" type="audio/wav">
+              </audio>
+            </div>
           </div>
         </section>
 
@@ -1724,16 +1955,172 @@
     </div>
   </div>
 
+  <dialog class="lightbox" aria-label="故事圖片檢視">
+    <figure class="lightbox-figure">
+      <button class="lightbox-prev" type="button" aria-label="上一張">‹</button>
+      <img class="lightbox-image" src="" alt="">
+      <button class="lightbox-next" type="button" aria-label="下一張">›</button>
+      <figcaption class="lightbox-caption"></figcaption>
+      <button class="lightbox-close" type="button" aria-label="關閉">×</button>
+    </figure>
+  </dialog>
+
   <script>
     (() => {
       const figures = document.querySelectorAll('.story-figure');
 
       figures.forEach((figure) => {
         const image = figure.querySelector('img');
-        const markMissing = () => figure.classList.add('is-missing');
+        const markMissing = () => {
+          figure.classList.add('is-missing');
+          const trigger = figure.querySelector('.story-figure-trigger');
+          if (trigger) trigger.disabled = true;
+        };
 
         image.addEventListener('error', markMissing, { once: true });
         if (image.complete && image.naturalWidth === 0) markMissing();
+      });
+
+      if ('IntersectionObserver' in window) {
+        document.documentElement.classList.add('js-gallery-reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: .35 });
+        document.querySelectorAll('.story-figure:nth-child(n + 2)').forEach((figure) => {
+          revealObserver.observe(figure);
+        });
+      }
+
+      const lightbox = document.querySelector('.lightbox');
+      const lightboxImage = lightbox.querySelector('.lightbox-image');
+      const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+      const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+      const lightboxNext = lightbox.querySelector('.lightbox-next');
+      const lightboxClose = lightbox.querySelector('.lightbox-close');
+      const CHAPTER_NAMES = ['encounter', 'acquaintance', 'accompany'];
+      let lightboxItems = [];
+      let lightboxIndex = 0;
+
+      const renderLightbox = () => {
+        const figure = lightboxItems[lightboxIndex];
+        const image = figure.querySelector('img');
+        const caption = figure.querySelector('.image-fallback strong');
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightboxCaption.textContent = caption ? caption.textContent : '';
+        const multiple = lightboxItems.length > 1;
+        lightboxPrev.hidden = !multiple;
+        lightboxNext.hidden = !multiple;
+      };
+
+      const stepLightbox = (delta) => {
+        if (lightboxItems.length < 2) return;
+        lightboxIndex = (lightboxIndex + delta + lightboxItems.length) % lightboxItems.length;
+        renderLightbox();
+      };
+
+      const openLightbox = (figure) => {
+        if (figure.classList.contains('is-missing')) return;
+        const gallery = figure.closest('.story-gallery');
+        lightboxItems = [...gallery.querySelectorAll('.story-figure')].filter((item) => !item.classList.contains('is-missing'));
+        if (!lightboxItems.length) return;
+
+        lightboxIndex = lightboxItems.indexOf(figure);
+        const chapter = figure.closest('.chapter');
+        CHAPTER_NAMES.forEach((name) => lightbox.classList.remove(`lightbox--${name}`));
+        const chapterName = CHAPTER_NAMES.find((name) => chapter && chapter.classList.contains(name));
+        if (chapterName) lightbox.classList.add(`lightbox--${chapterName}`);
+
+        renderLightbox();
+        lightbox.showModal();
+      };
+
+      figures.forEach((figure) => {
+        const trigger = figure.querySelector('.story-figure-trigger');
+        if (trigger) trigger.addEventListener('click', () => openLightbox(figure));
+      });
+
+      lightboxPrev.addEventListener('click', () => stepLightbox(-1));
+      lightboxNext.addEventListener('click', () => stepLightbox(1));
+      lightboxClose.addEventListener('click', () => lightbox.close());
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) lightbox.close();
+      });
+      lightbox.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') stepLightbox(-1);
+        if (event.key === 'ArrowRight') stepLightbox(1);
+      });
+
+      let lightboxTouchX = null;
+      lightbox.addEventListener('touchstart', (event) => {
+        lightboxTouchX = event.changedTouches[0].clientX;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', (event) => {
+        if (lightboxTouchX === null) return;
+        const deltaX = event.changedTouches[0].clientX - lightboxTouchX;
+        if (Math.abs(deltaX) > 40) stepLightbox(deltaX > 0 ? -1 : 1);
+        lightboxTouchX = null;
+      }, { passive: true });
+
+      const trackAudios = [...document.querySelectorAll('.track-audio')];
+
+      const TRACK_STATE_TEXT = {
+        idle: { icon: '▶', label: '尚未播放', verb: '播放' },
+        playing: { icon: '❚❚', label: '播放中', verb: '暫停' },
+        paused: { icon: '▶', label: '已暫停', verb: '播放' },
+        ended: { icon: '↺', label: '再次聆聽', verb: '再次播放' },
+        unavailable: { icon: '▶', label: '曲目尚未放入', verb: '播放' },
+      };
+
+      const setTrackState = (container, state) => {
+        container.dataset.audioState = state;
+        const trackName = container.querySelector('strong').textContent;
+        const toggle = container.querySelector('.track-toggle');
+        const info = TRACK_STATE_TEXT[state];
+        container.querySelector('.track-icon').textContent = info.icon;
+        container.querySelector('.track-state-label').textContent = info.label;
+        toggle.setAttribute('aria-label', `${info.verb}${trackName}`);
+        toggle.disabled = state === 'unavailable';
+      };
+
+      const pauseAllAudio = () => {
+        trackAudios.forEach((audio) => {
+          if (!audio.paused) audio.pause();
+        });
+      };
+
+      trackAudios.forEach((audio) => {
+        const container = audio.closest('.track-placeholder');
+        const toggle = container.querySelector('.track-toggle');
+        setTrackState(container, 'idle');
+
+        toggle.addEventListener('click', () => {
+          if (audio.paused) {
+            trackAudios.forEach((other) => {
+              if (other !== audio && !other.paused) other.pause();
+            });
+            audio.play().catch(() => setTrackState(container, 'unavailable'));
+            window.setTimeout(() => {
+              if (audio.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+                audio.pause();
+                setTrackState(container, 'unavailable');
+              }
+            }, 400);
+          } else {
+            audio.pause();
+          }
+        });
+
+        audio.addEventListener('play', () => setTrackState(container, 'playing'));
+        audio.addEventListener('pause', () => {
+          if (!audio.ended) setTrackState(container, 'paused');
+        });
+        audio.addEventListener('ended', () => setTrackState(container, 'ended'));
+        audio.addEventListener('error', () => setTrackState(container, 'unavailable'));
       });
 
       const scenes = [...document.querySelectorAll('.scene')];
@@ -1757,6 +2144,7 @@
         if (!target || target === currentScene || changing) return;
 
         changing = true;
+        pauseAllAudio();
         const isOpening = currentScene.id === 'prelude' && target.id === 'encounter';
         document.body.classList.add('is-transitioning');
         document.body.classList.toggle('is-opening', isOpening);
