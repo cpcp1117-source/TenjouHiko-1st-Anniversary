@@ -1,75 +1,73 @@
-# Design QA — Visual MVP Cover
+# Design QA — Opening Aurora Sequence + Chapter 03 Palette
 
-## Evidence
+## Source Visual Truth
 
-- Source visual truth: `docs/reference/selected-cover-option-3.png`
-- Implementation screenshot: `qa-output/cover-implementation.png`
-- Source pixels: 1440 × 1024
-- Implementation pixels: 1440 × 1024
-- CSS viewport: 1440 × 1024
-- Device scale factor: 1
-- State: Prelude / cover before opening the letter
-- Browser renderer: Chrome for Testing 154 headless
+- User motion specification: button glow → cover copy fade → ice-blue center line → aurora curtains sweep from both sides → `Chapter 01` / `相遇 Encounter` → Chapter 01 reveal.
+- Intended duration: approximately 1.5–2 seconds.
+
+## Rendered Evidence
+
+- Desktop cover: `qa-output/opening-final-cover-desktop.png`
+- Mobile cover: `qa-output/opening-final-cover-mobile.png`
+- Copy fade / veil entry: `qa-output/opening-curtain-0350.png`
+- Left and right curtain sweep: `qa-output/opening-curtain-0700.png`
+- Chapter title: `qa-output/opening-curtain-1100.png`
+- Chapter 01 revealed: `qa-output/opening-curtain-1900.png`
+- Desktop viewport: 1440 × 1024 CSS px, deviceScaleFactor 1.
+- Mobile viewport: 390 × 844 CSS px, deviceScaleFactor 1.
 
 ## Full-view Comparison Evidence
 
-The source and implementation were each opened at the same pixel size. The implementation visibly preserves the selected direction's open ivory textile storybook, aurora window, ice-blue ribbon, pale-gold embroidery, centered title hierarchy, sound note and primary action. Live HTML replaces the mockup's baked-in text and button.
-
-A combined side-by-side browser capture could not be completed because repeated Chrome headless comparison launches remained open without writing the requested comparison screenshot. The helper processes were stopped without touching the user's regular Chrome sessions.
+The browser-rendered sequence follows the six requested beats. The desktop cover keeps the editorial typography while adding a low-contrast ice-blue, lavender and coral aurora field. The transition changes from the light cover into a deep-blue veil, draws the center light, brings cyan and violet curtains inward from opposite sides, then presents the chapter label before revealing the encounter section.
 
 ## Focused Region Evidence
 
-Not completed. The cover title, body copy and primary action are readable in the full-size implementation capture, but the required combined focused comparison artifact is unavailable.
-
-## Findings
-
-- [P1] Required combined comparison evidence is unavailable
-  - Location: cover, complete viewport.
-  - Evidence: both source and implementation captures exist at 1440 × 1024, but the tool did not produce one combined comparison image.
-  - Impact: Product Design QA cannot formally claim visual fidelity from separate views.
-  - Fix: reopen both images in one browser/canvas surface or use the in-app browser review surface to compare them together.
-
-- [P1] Primary transition has not been browser-interaction tested
-  - Location: `開啟這封信` → Chapter 01.
-  - Evidence: JavaScript syntax is valid, but the Playwright CLI did not return an operable session.
-  - Impact: the visual MVP's main interaction may still have timing, focus or state defects.
-  - Fix: test click, transition veil, Chapter 01 reveal, back navigation and console in the in-app browser.
-
-- [P2] Mobile implementation lacks rendered evidence
-  - Location: 390 × 844 cover and Chapter 01.
-  - Evidence: responsive rules exist, but no mobile browser screenshot was captured.
-  - Impact: background cropping, text density or controls may not fit as intended.
-  - Fix: capture cover and first chapter at 390 × 844 and correct any overflow or low-contrast areas.
+Focused evidence was captured at 0.35s, 0.70s and 1.10s because the direction and timing of the curtain, light line and title cannot be judged from the final screen alone.
 
 ## Required Fidelity Surfaces
 
-- Fonts and typography: live Traditional Chinese title and body copy are readable and follow the source hierarchy; exact font fidelity remains unverified.
-- Spacing and layout rhythm: desktop cover composition follows the selected source and fits at 1440 × 1024; mobile remains unverified.
-- Colors and visual tokens: ivory, midnight blue, ice blue, lavender aurora and pale gold visibly match the selected direction.
-- Image quality and asset fidelity: generated cover background is sharp at 1440 × 1024 and is used as a real raster asset rather than recreated with placeholder CSS art.
-- Copy and content: required anniversary eyebrow, title, description, sound note and primary action are present as live HTML.
+- Fonts and typography: existing serif/sans hierarchy is preserved; `Chapter 01`, `相遇` and `Encounter` remain readable during the dark transition.
+- Spacing and layout rhythm: title card remains centered; desktop and mobile cover widths show no horizontal overflow.
+- Colors and visual tokens: cover uses restrained warm paper, ice blue, lavender and coral; transition uses deep blue, cyan, violet and star white.
+- Image quality and asset fidelity: the misleading `Aurora_Above_The_Glass.mp4` was removed after live capture showed embedded oversized typography and glass imagery. The final effect is abstract light only, so it does not reintroduce the rejected AI-heavy hero style.
+- Copy and content: the requested `Chapter 01` and `相遇 Encounter` labels are present; original anniversary copy is unchanged.
+
+## Interaction And Accessibility
+
+- Primary click-through tested from Prelude to Encounter.
+- Final state at approximately 1.9 seconds: `encounter` visible, transition classes removed, document title updated.
+- Browser JavaScript exceptions: 0.
+- Browser resource errors: 3 expected missing encounter story images; existing text fallback handled them without breaking the page.
+- `prefers-reduced-motion: reduce` keeps an immediate, non-animated scene change and hides decorative motion layers.
 
 ## Comparison History
 
 ### Iteration 1
 
-- Earlier issue: MVP used a generic dark card and did not visibly express the requested art direction.
-- Fix made: generated and integrated a blank illuminated storybook cover plus a matching first-chapter textile page; rewrote cover and chapter styling around those assets.
-- Post-fix evidence: `qa-output/cover-implementation.png`.
-- Result: visual direction materially improved; formal comparison and interaction gates remain blocked.
+- Finding: the existing MP4 displayed large English typography and glass objects instead of a restrained aurora.
+- Fix: removed the video from both cover and transition; retained only abstract light and color.
+- Post-fix evidence: `opening-final-cover-desktop.png`, `opening-final-cover-mobile.png`.
 
-## Implementation Checklist
+### Iteration 2
 
-1. Refresh and inspect the cover in the in-app browser.
-2. Test the open-letter transition and Chapter 01 reveal.
-3. Inspect 390 × 844 mobile layout.
-4. Record console errors.
-5. Repeat same-surface source/implementation comparison.
+- Finding: the first mask formed a narrow center strip, visually reading as center-out rather than side-in.
+- Fix: split the aurora into independent left and right curtains moving from outside the viewport toward the center.
+- Post-fix evidence: `opening-curtain-0700.png`, `opening-curtain-1100.png`.
 
-## Follow-up Polish
+## Remaining P3 Polish
 
-- Tune title size and vertical position after live browser feedback.
-- Adjust transition duration if the page-turn reveal feels too slow.
-- Decide whether the progress capsule should remain visible in Chapter 01.
+- The center seam between cyan and violet is intentionally visible as a meeting point; it can be softened in a later taste pass if desired.
 
-final result: blocked
+## Chapter 03 Palette Update
+
+- Source decision: replace the abrupt deep-night palette with the approved Moon Mist blue-grey direction.
+- Before evidence: `qa-output/audit-accompany-desktop.png`.
+- Desktop implementation: `qa-output/accompany-moon-mist-final-desktop.png`, 1440 × 1024 CSS px, deviceScaleFactor 1.
+- Mobile implementation: `qa-output/accompany-moon-mist-final-mobile.png`, 390 × 844 CSS px, deviceScaleFactor 1.
+- Finale handoff evidence: `qa-output/accompany-to-finale-desktop.png`.
+- Applied tokens: background `#E6EBF2`, text `#293F58`, card `#F7F5F1`, button `#34506B`, accessible dark moon-gold `#7F612D`.
+- Contrast: body text 9.01:1; card text 9.91:1; button text 8.25:1; chapter-number gold 4.80:1.
+- Browser result: no horizontal overflow at 390 px and no JavaScript exceptions.
+- Comparison result: Chapter 02 → Chapter 03 → Finale now stays in a continuous light tonal range; no actionable P0/P1/P2 findings remain.
+
+final result: passed

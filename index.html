@@ -859,6 +859,634 @@
         animation: none;
       }
     }
+    /* 2026-09 editorial redesign: restrained Japanese brand language. */
+    :root {
+      color-scheme: light;
+      --ink: #18304d;
+      --paper: #f7f4ee;
+      --paper-white: #fffdf9;
+      --hairline: rgba(24, 48, 77, .22);
+      --sans: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Microsoft JhengHei", sans-serif;
+      --serif: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif TC", "PMingLiU", serif;
+    }
+
+    html { overflow-x: clip; background: var(--paper); }
+
+    body {
+      overflow-x: clip;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 2;
+    }
+
+    .site-nav {
+      position: fixed;
+      z-index: 30;
+      top: 1.25rem;
+      right: 1.25rem;
+      left: auto;
+      display: flex;
+      width: auto;
+      align-items: center;
+      gap: 1rem;
+      padding: .52rem .85rem;
+      border: 1px solid rgba(255, 255, 255, .7);
+      border-radius: 999px;
+      background: rgba(255, 253, 249, .82);
+      box-shadow: 0 .4rem 1.6rem rgba(35, 49, 65, .08);
+      backdrop-filter: blur(12px);
+    }
+
+    body.is-prelude .site-nav {
+      pointer-events: auto;
+      opacity: 1;
+      transform: none;
+    }
+
+    .site-title { display: none; }
+
+    .scene-count {
+      color: #425770;
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .cover {
+      position: relative;
+      display: grid;
+      min-height: 100svh;
+      place-items: center;
+      overflow: hidden;
+      padding: 7rem 6vw 4rem;
+      color: #173557;
+      background: #f4e9df;
+      background-image: none;
+      isolation: isolate;
+    }
+
+    .cover::before {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 8vw;
+      width: min(29vw, 25rem);
+      height: 64vh;
+      border-right: 1px solid rgba(29, 66, 101, .18);
+      border-left: 1px solid rgba(29, 66, 101, .18);
+      background: rgba(150, 207, 224, .34);
+      content: "";
+    }
+
+    .cover::after {
+      position: absolute;
+      z-index: -1;
+      right: 0;
+      bottom: 8vh;
+      width: 42vw;
+      height: 23vh;
+      background: rgba(235, 145, 143, .4);
+      content: "";
+      animation: none;
+    }
+
+    .cover-inner {
+      width: min(100%, 70rem);
+      padding: 0;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      box-shadow: none;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    .cover .eyebrow,
+    .chapter-number,
+    .finale .eyebrow {
+      margin-bottom: 1.6rem;
+      color: #9c6b33;
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .24em;
+      animation: none;
+    }
+
+    .cover h1 {
+      max-width: 8em;
+      margin-bottom: 2rem;
+      color: #173557;
+      font-size: clamp(3.8rem, 9vw, 8.6rem);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: .01em;
+      animation: none;
+    }
+
+    .cover-lead {
+      max-width: 31rem;
+      margin: 0;
+      color: #344e69;
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      line-height: 2.15;
+      animation: none;
+    }
+
+    .cover .sound-note {
+      margin: 2rem 0 1rem;
+      color: #6c5c50;
+      font-family: var(--sans);
+      font-size: .75rem;
+      animation: none;
+    }
+
+    .primary-link,
+    .next-link,
+    .cover .primary-link {
+      min-height: 3.35rem;
+      padding: .75rem 1.4rem;
+      border: 1px solid #173557;
+      border-radius: 999px;
+      color: #fffdf9;
+      background: #173557;
+      box-shadow: none;
+      font-family: var(--sans);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      animation: none;
+    }
+
+    .primary-link:hover,
+    .next-link:hover {
+      color: #173557;
+      background: transparent;
+      filter: none;
+    }
+
+    .chapter {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: clamp(6rem, 10vw, 9rem) 5vw 5rem;
+      border: 0;
+      color: #173557;
+      background-image: none;
+    }
+
+    .chapter::before {
+      position: absolute;
+      top: 0;
+      left: 5vw;
+      color: rgba(23, 53, 87, .075);
+      content: attr(data-scene-title);
+      font-family: var(--serif);
+      font-size: clamp(8rem, 23vw, 22rem);
+      line-height: 1;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .chapter.encounter {
+      min-height: 100svh;
+      padding: clamp(6rem, 10vw, 9rem) 5vw 5rem;
+      color: #43382f;
+      background: #f8eee4;
+      background-image: none;
+    }
+
+    .chapter.acquaintance { background: #edf1fa; }
+    .acquaintance .chapter-number { color: #876aa0; }
+    .acquaintance .story-figure { background: rgba(255, 255, 255, .58); }
+    .chapter.accompany { color: #293f58; background: #e6ebf2; }
+
+    .chapter-inner,
+    .encounter .chapter-inner {
+      position: relative;
+      width: min(100%, 74rem);
+      margin-inline: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .chapter-heading,
+    .encounter .chapter-heading {
+      width: min(100%, 58rem);
+      margin: 0 auto 3rem;
+      text-align: left;
+    }
+
+    .chapter h2,
+    .encounter h2,
+    .finale h2 {
+      margin-bottom: 1rem;
+      color: inherit;
+      font-size: clamp(4rem, 10vw, 8.5rem);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.03em;
+    }
+
+    .chapter h2 span {
+      display: inline-block;
+      margin: 0 0 0 1.25rem;
+      color: inherit;
+      font-family: Georgia, serif;
+      font-size: clamp(.8rem, 1.4vw, 1rem);
+      font-style: italic;
+      letter-spacing: .12em;
+      opacity: .62;
+      vertical-align: middle;
+    }
+
+    .chapter-quote,
+    .encounter .chapter-quote {
+      max-width: 30rem;
+      margin: 1.5rem 0 0 auto;
+      padding-top: 1rem;
+      border-top: 1px solid currentColor;
+      color: inherit;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      opacity: .7;
+    }
+
+    .story-copy,
+    .encounter .story-copy {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      width: min(100%, 58rem);
+      margin: 0 auto 4rem;
+      color: inherit;
+      font-size: clamp(1rem, 1.6vw, 1.12rem);
+      line-height: 2.15;
+      text-align: left;
+    }
+
+    .story-gallery,
+    .encounter .story-gallery {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr 1fr;
+      gap: clamp(.7rem, 1.5vw, 1.25rem);
+      width: min(100%, 74rem);
+      margin: 0 auto 3rem;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .story-figure,
+    .story-figure:first-child,
+    .encounter .story-figure,
+    .encounter .story-figure:first-child {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid rgba(23, 53, 87, .22);
+      border-radius: 0;
+      background: rgba(255, 255, 255, .28);
+      box-shadow: none;
+    }
+
+    .story-figure:first-child,
+    .encounter .story-figure:first-child { aspect-ratio: 16 / 10; }
+
+    .story-figure img { transition: transform .6s ease; }
+    .story-figure:hover img { transform: scale(1.02); }
+
+    .image-fallback,
+    .encounter .image-fallback {
+      place-content: end start;
+      padding: 1.25rem;
+      color: inherit;
+      text-align: left;
+    }
+
+    .image-fallback strong,
+    .encounter .image-fallback strong {
+      color: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+    }
+
+    .image-fallback small { display: none; }
+
+    .listening-card,
+    .encounter .listening-card {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.25rem 3rem;
+      width: min(100%, 58rem);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      border: 1px solid currentColor;
+      border-radius: 0;
+      color: inherit;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .listening-card h3 { margin: 0; font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 500; }
+    .listening-card > p,
+    .encounter .listening-card p { margin: 0; color: inherit; opacity: .72; }
+
+    .track-placeholder {
+      grid-column: 1 / -1;
+      padding-top: 1.25rem;
+      border-top: 1px solid currentColor;
+      font-family: var(--sans);
+    }
+
+    .track-placeholder small,
+    .encounter .track-placeholder small { color: inherit; opacity: .58; }
+
+    .track-placeholder button {
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      color: inherit;
+      background: transparent;
+    }
+
+    .scene-actions { width: min(100%, 58rem); margin-top: 2.5rem; }
+
+    .scene-back,
+    .encounter .scene-back {
+      border: 0;
+      border-bottom: 1px solid currentColor;
+      border-radius: 0;
+      color: inherit;
+      background: transparent;
+      font-family: var(--sans);
+      font-weight: 700;
+    }
+
+    .encounter .next-link { color: #fffdf9; background: #55483e; box-shadow: none; }
+    .acquaintance .next-link { background: #566385; border-color: #566385; }
+    .accompany .next-link { color: #fffdf9; background: #34506b; border-color: #34506b; }
+
+    .accompany::before { color: rgba(41, 63, 88, .06); }
+    .accompany .chapter-number { color: #7f612d; }
+    .accompany .story-figure { border-color: rgba(41, 63, 88, .24); background: #f7f5f1; }
+
+    .finale {
+      min-height: 100svh;
+      padding: 7rem 5vw 4rem;
+      border: 0;
+      color: #213b56;
+      background: #f5f1e8;
+      text-align: left;
+    }
+
+    .finale-inner {
+      width: min(100%, 68rem);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .finale h2 { max-width: 9em; font-size: clamp(3.4rem, 8vw, 7rem); line-height: 1.08; }
+    .finale-copy { width: min(100%, 38rem); margin: 3rem 0 0 auto; color: inherit; }
+    .finale-signoff { width: min(100%, 38rem); margin: 2.5rem 0 0 auto; color: #946829; font-size: 1.25rem; }
+    .finale .scene-actions { margin-left: auto; }
+
+    .transition-veil {
+      background: rgba(247, 244, 238, .96);
+      background-image: none;
+    }
+
+    .transition-card {
+      width: min(86vw, 34rem);
+      padding: 3rem 1.5rem;
+      border: 0;
+      border-top: 1px solid #173557;
+      border-bottom: 1px solid #173557;
+      border-radius: 0;
+      color: #173557;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .transition-kicker { color: #946829; font-family: var(--sans); }
+    .transition-title { color: #173557; font-weight: 400; }
+
+    @media (max-width: 760px) {
+      .site-nav { top: .75rem; right: .75rem; }
+      .cover { min-height: 100svh; padding: 7rem 1.25rem 3rem; background-size: auto; }
+      .cover::before { right: 12vw; width: 36vw; height: 43vh; }
+      .cover::after { bottom: 5vh; width: 55vw; height: 16vh; }
+      .cover-inner { width: 100%; padding: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+      .cover h1 { font-size: clamp(3.45rem, 15.4vw, 4.5rem); letter-spacing: -.04em; }
+      .cover-lead { max-width: 84%; margin-left: 0; }
+      .chapter,
+      .chapter.encounter { padding: 6.5rem 1.25rem 3rem; background-size: auto; }
+      .chapter::before { left: -.25rem; font-size: 8rem; }
+      .chapter-inner,
+      .encounter .chapter-inner { width: 100%; padding: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+      .chapter h2,
+      .encounter h2 { font-size: clamp(3.8rem, 19vw, 5.5rem); }
+      .chapter h2 span { display: block; margin: .75rem 0 0; }
+      .chapter-quote,
+      .encounter .chapter-quote { margin-left: 20%; }
+      .story-copy,
+      .encounter .story-copy { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 3rem; }
+      .story-gallery,
+      .encounter .story-gallery { display: flex; gap: .75rem; margin-inline: -1.25rem; padding: 0 1.25rem .75rem; overflow-x: auto; scroll-snap-type: x mandatory; }
+      .story-figure,
+      .story-figure:first-child,
+      .encounter .story-figure,
+      .encounter .story-figure:first-child { flex: 0 0 78vw; aspect-ratio: 4 / 3; scroll-snap-align: center; }
+      .listening-card,
+      .encounter .listening-card { grid-template-columns: 1fr; gap: .8rem; }
+      .track-placeholder { grid-column: 1; }
+      .scene-actions { flex-direction: column-reverse; }
+      .scene-actions > * { width: 100%; }
+      .finale { padding-inline: 1.25rem; }
+      .finale h2 { font-size: clamp(3.1rem, 15vw, 4.8rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .story-figure img { transition: none; }
+    }
+
+    /* Opening sequence: restrained aurora film with a 1.8s chapter reveal. */
+    .transition-aurora {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .cover::before {
+      z-index: -1;
+      inset: 0;
+      width: auto;
+      height: auto;
+      border: 0;
+      background:
+        linear-gradient(90deg, rgba(244, 233, 223, .78) 0%, rgba(244, 233, 223, .52) 54%, rgba(244, 233, 223, .3) 100%),
+        radial-gradient(ellipse at 88% 18%, rgba(109, 196, 206, .7) 0%, rgba(109, 196, 206, 0) 38%),
+        radial-gradient(ellipse at 74% 54%, rgba(174, 139, 200, .5) 0%, rgba(174, 139, 200, 0) 34%),
+        radial-gradient(ellipse at 94% 86%, rgba(233, 142, 141, .48) 0%, rgba(233, 142, 141, 0) 31%);
+    }
+
+    .cover::after { display: none; }
+
+    body.is-opening .cover .primary-link {
+      animation: opening-button-glow .42s ease both;
+    }
+
+    body.is-opening .cover-inner {
+      animation: opening-copy-away .48s .24s ease both;
+    }
+
+    @keyframes opening-button-glow {
+      0% { box-shadow: 0 0 0 0 rgba(177, 230, 255, 0); }
+      55% { box-shadow: 0 0 1.8rem .65rem rgba(177, 230, 255, .6); }
+      100% { box-shadow: 0 0 2.4rem .9rem rgba(177, 230, 255, 0); }
+    }
+
+    @keyframes opening-copy-away {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-.75rem); }
+    }
+
+    .transition-veil {
+      overflow: hidden;
+      background: #102746;
+    }
+
+    .transition-aurora {
+      z-index: 0;
+      opacity: 0;
+    }
+
+    .transition-aurora::before,
+    .transition-aurora::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 51%;
+      content: "";
+    }
+
+    .transition-aurora::before {
+      left: 0;
+      background:
+        radial-gradient(ellipse at 72% 34%, rgba(85, 218, 224, .86) 0%, rgba(85, 218, 224, 0) 48%),
+        linear-gradient(120deg, #102746 8%, #1f6070 66%, #31466b 100%);
+      transform: translateX(-100%);
+    }
+
+    .transition-aurora::after {
+      right: 0;
+      background:
+        radial-gradient(ellipse at 28% 58%, rgba(177, 121, 217, .78) 0%, rgba(177, 121, 217, 0) 50%),
+        linear-gradient(240deg, #102746 8%, #493b72 66%, #31466b 100%);
+      transform: translateX(100%);
+    }
+
+    .transition-light {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: min(72vw, 58rem);
+      height: 1px;
+      background: #bcecff;
+      box-shadow: 0 0 1rem .22rem rgba(188, 236, 255, .72);
+      opacity: 0;
+      transform: translate(-50%, -50%) scaleX(0);
+      transform-origin: center;
+    }
+
+    .transition-card {
+      position: relative;
+      z-index: 3;
+      border-color: rgba(221, 242, 255, .58);
+      color: #f8fbff;
+      opacity: 0;
+    }
+
+    .transition-kicker,
+    .transition-title { color: inherit; }
+
+    .transition-title span {
+      display: block;
+      margin-top: .6rem;
+      font: italic .9rem/1.4 Georgia, serif;
+      letter-spacing: .18em;
+      opacity: .7;
+    }
+
+    .transition-veil.is-visible:not(.is-opening-sequence) .transition-card {
+      opacity: 1;
+    }
+
+    .transition-veil.is-visible.is-opening-sequence .transition-aurora {
+      opacity: 1;
+    }
+
+    .transition-veil.is-visible.is-opening-sequence .transition-aurora::before {
+      animation: aurora-curtain-left .86s .12s cubic-bezier(.22, .72, .24, 1) both;
+    }
+
+    .transition-veil.is-visible.is-opening-sequence .transition-aurora::after {
+      animation: aurora-curtain-right .86s .12s cubic-bezier(.22, .72, .24, 1) both;
+    }
+
+    .transition-veil.is-visible.is-opening-sequence .transition-light {
+      animation: opening-light-line .72s .12s ease-out both;
+    }
+
+    .transition-veil.is-visible.is-opening-sequence .transition-card {
+      animation: opening-chapter-title .48s .72s ease-out both;
+    }
+
+    @keyframes aurora-curtain-left {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes aurora-curtain-right {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes opening-light-line {
+      0% { opacity: 0; transform: translate(-50%, -50%) scaleX(0); }
+      45% { opacity: 1; transform: translate(-50%, -50%) scaleX(1); }
+      100% { opacity: .18; transform: translate(-50%, -50%) scaleX(.26); }
+    }
+
+    @keyframes opening-chapter-title {
+      from { opacity: 0; transform: translateY(.9rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 760px) {
+      .cover::before { width: auto; height: auto; }
+      .transition-light { width: 82vw; }
+      .transition-card { width: min(82vw, 28rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .transition-aurora { display: none; }
+      body.is-opening .cover .primary-link,
+      body.is-opening .cover-inner,
+      .transition-veil.is-visible.is-opening-sequence .transition-light,
+      .transition-veil.is-visible.is-opening-sequence .transition-card { animation: none; }
+      .transition-light { display: none; }
+      .transition-card { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -1034,6 +1662,8 @@
   </main>
 
   <div class="transition-veil" aria-hidden="true">
+    <div class="transition-aurora" aria-hidden="true"></div>
+    <span class="transition-light" aria-hidden="true"></span>
     <div class="transition-card">
       <p class="transition-kicker">A New Impression</p>
       <p class="transition-title"></p>
@@ -1055,6 +1685,7 @@
       const scenes = [...document.querySelectorAll('.scene')];
       const count = document.querySelector('.scene-count');
       const veil = document.querySelector('.transition-veil');
+      const veilKicker = document.querySelector('.transition-kicker');
       const veilTitle = document.querySelector('.transition-title');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let currentScene = document.querySelector('.scene:not([hidden])');
@@ -1072,12 +1703,19 @@
         if (!target || target === currentScene || changing) return;
 
         changing = true;
+        const isOpening = currentScene.id === 'prelude' && target.id === 'encounter';
         document.body.classList.add('is-transitioning');
-        veilTitle.textContent = target.dataset.sceneTitle;
-        currentScene.classList.add('scene-leaving');
+        document.body.classList.toggle('is-opening', isOpening);
+        veil.classList.toggle('is-opening-sequence', isOpening);
+        veilKicker.textContent = isOpening ? 'Chapter 01' : 'A New Impression';
+        veilTitle.innerHTML = isOpening ? '相遇 <span>Encounter</span>' : target.dataset.sceneTitle;
 
-        const leaveDelay = reducedMotion.matches ? 0 : 380;
-        const revealDelay = reducedMotion.matches ? 0 : 760;
+        if (!isOpening) {
+          currentScene.classList.add('scene-leaving');
+        }
+
+        const leaveDelay = reducedMotion.matches ? 0 : (isOpening ? 360 : 380);
+        const revealDelay = reducedMotion.matches ? 0 : (isOpening ? 1480 : 760);
 
         window.setTimeout(() => {
           veil.classList.add('is-visible');
@@ -1094,15 +1732,17 @@
 
           window.setTimeout(() => {
             veil.classList.remove('is-visible');
+            veil.classList.remove('is-opening-sequence');
             target.classList.remove('scene-entering');
             document.body.classList.remove('is-transitioning');
+            document.body.classList.remove('is-opening');
             const heading = target.querySelector('h1, h2');
             if (heading) {
               heading.setAttribute('tabindex', '-1');
               heading.focus({ preventScroll: true });
             }
             changing = false;
-          }, reducedMotion.matches ? 0 : 720);
+          }, reducedMotion.matches ? 0 : (isOpening ? 420 : 720));
         }, revealDelay);
       };
 
