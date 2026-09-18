@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="以三段故事與三首鋼琴印象曲寫成的一周年祝賀。">
+  <title>給妳的三首印象曲｜一周年紀念</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #081225;
+      --surface: #111f3d;
+      --surface-soft: #17294a;
+      --line: #7187ad;
+      --text: #fffdf8;
+      --muted: #cddbf2;
+      --gold: #f4dca7;
+      --ice: #bfe9ff;
+      --encounter: #f2c8b8;
+      --acquaintance: #c8d9ff;
+      --accompany: #f0dda9;
+      --focus: #ffffff;
+      --content: 72rem;
+      --reading: 46rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: "Noto Serif TC", "Source Han Serif TC", "Microsoft JhengHei", serif;
+      line-height: 1.9;
+    }
+
+    body.is-transitioning {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 1rem;
+      left: 1rem;
+      padding: .65rem 1rem;
+      background: var(--text);
+      color: var(--page);
+      transform: translateY(-180%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-nav {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: .65rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 16, 32, .96);
+      scrollbar-width: none;
+    }
+
+    .site-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .site-title,
+    .scene-count {
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+      font-size: .8rem;
+      letter-spacing: .08em;
+    }
+
+    .scene-count {
+      color: var(--ice);
+    }
+
+    .cover,
+    .chapter,
+    .finale {
+      min-height: 100svh;
+      scroll-margin-top: 4rem;
+    }
+
+    .scene[hidden] {
+      display: none;
+    }
+
+    .scene.scene-entering {
+      animation: scene-enter .7s ease both;
+    }
+
+    .scene.scene-leaving {
+      animation: scene-leave .38s ease both;
+    }
+
+    @keyframes scene-enter {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scene-leave {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-12px); }
+    }
+
+    .cover {
+      display: grid;
+      place-items: center;
+      padding: 5rem 1.25rem;
+      text-align: center;
+    }
+
+    .cover-inner {
+      width: min(100%, 46rem);
+      padding: clamp(2rem, 7vw, 5rem) clamp(1.25rem, 6vw, 4rem);
+      border: 1px solid #93acd2;
+      border-radius: 2rem;
+      background: var(--surface);
+      box-shadow: inset 0 0 0 6px rgba(191, 233, 255, .035), 0 1.5rem 5rem rgba(0, 0, 0, .28);
+    }
+
+    .eyebrow,
+    .chapter-number {
+      margin: 0 0 .7rem;
+      color: var(--gold);
+      font-family: system-ui, sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: clamp(2.3rem, 9vw, 5.4rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: .05em;
+    }
+
+    .cover-lead {
+      max-width: 32rem;
+      margin-inline: auto;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .sound-note {
+      margin: 2rem 0 1.1rem;
+      color: var(--gold);
+      font-family: system-ui, sans-serif;
+      font-size: .88rem;
+    }
+
+    .primary-link,
+    .next-link {
+      display: inline-flex;
+      min-height: 3rem;
+      align-items: center;
+      justify-content: center;
+      padding: .7rem 1.25rem;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      color: var(--page);
+      background: var(--gold);
+      font-family: system-ui, sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .primary-link:hover,
+    .next-link:hover {
+      filter: brightness(1.08);
+    }
+
+    .chapter,
+    .finale {
+      padding: clamp(5rem, 10vw, 8rem) 1.25rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .chapter-inner,
+    .finale-inner {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+    }
+
+    .chapter-heading,
+    .story-copy,
+    .listening-card,
+    .chapter-footer,
+    .finale-copy {
+      width: min(100%, var(--reading));
+      margin-inline: auto;
+    }
+
+    .chapter-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .chapter h2,
+    .finale h2 {
+      margin-bottom: .6rem;
+      font-size: clamp(2.2rem, 8vw, 4.8rem);
+      font-weight: 500;
+      line-height: 1.15;
+    }
+
+    .chapter h2 span {
+      display: block;
+      margin-top: .5rem;
+      color: var(--muted);
+      font-family: Georgia, serif;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      letter-spacing: .15em;
+    }
+
+    .chapter-quote {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .story-copy {
+      margin-bottom: 2.5rem;
+      font-size: clamp(1.05rem, 2vw, 1.18rem);
+    }
+
+    .story-copy p:last-child,
+    .finale-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-gallery {
+      display: grid;
+      grid-template-columns: 1.25fr .875fr .875fr;
+      gap: 1rem;
+      width: min(100%, var(--content));
+      margin: 0 auto 2.5rem;
+    }
+
+    .story-figure {
+      position: relative;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--surface);
+      aspect-ratio: 4 / 3;
+    }
+
+    .story-figure:first-child {
+      aspect-ratio: 16 / 10;
+    }
+
+    .story-figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-figure.is-missing img {
+      display: none;
+    }
+
+    .image-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-content: center;
+      padding: 1rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .story-figure.is-missing .image-fallback {
+      display: grid;
+    }
+
+    .image-fallback strong {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .image-fallback small {
+      font-family: system-ui, sans-serif;
+      font-size: .75rem;
+      overflow-wrap: anywhere;
+    }
+
+    .listening-card {
+      padding: clamp(1.25rem, 4vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--surface-soft);
+    }
+
+    .listening-card h3 {
+      margin-bottom: .45rem;
+      font-size: 1.35rem;
+    }
+
+    .listening-card p {
+      margin-bottom: 1rem;
+      color: var(--muted);
+    }
+
+    .track-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-family: system-ui, sans-serif;
+    }
+
+    .track-placeholder strong {
+      display: block;
+      font-size: .95rem;
+    }
+
+    .track-placeholder small {
+      display: block;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .track-placeholder button {
+      flex: 0 0 auto;
+      min-height: 2.75rem;
+      padding: .55rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      cursor: not-allowed;
+    }
+
+    .chapter-footer {
+      margin-top: 2.5rem;
+      text-align: right;
+    }
+
+    .next-link {
+      color: var(--text);
+      background: transparent;
+    }
+
+    .finale {
+      display: grid;
+      align-items: center;
+      text-align: center;
+    }
+
+    .finale-inner {
+      padding: clamp(2rem, 7vw, 5rem) clamp(1.25rem, 6vw, 4rem);
+      border: 1px solid var(--line);
+      border-radius: 1.5rem;
+      background: var(--surface);
+    }
+
+    .scene-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      width: min(100%, var(--reading));
+      margin: 2.5rem auto 0;
+    }
+
+    .scene-back {
+      min-height: 3rem;
+      padding: .7rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font: 700 .9rem system-ui, sans-serif;
+      cursor: pointer;
+    }
+
+    .transition-veil {
+      position: fixed;
+      z-index: 90;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      background: rgba(8, 18, 37, .97);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease, visibility .35s ease;
+    }
+
+    .transition-veil.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .transition-card {
+      width: min(100%, 34rem);
+      padding: clamp(2rem, 8vw, 4rem);
+      border: 1px solid var(--ice);
+      border-radius: 2rem;
+      color: var(--text);
+      background: var(--surface);
+      text-align: center;
+      box-shadow: inset 0 0 0 6px rgba(191, 233, 255, .04);
+    }
+
+    .transition-kicker {
+      margin-bottom: .5rem;
+      color: var(--gold);
+      font-family: system-ui, sans-serif;
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .transition-title {
+      margin: 0;
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .finale-copy {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+    }
+
+    .finale-signoff {
+      margin-top: 2.5rem;
+      color: var(--gold);
+    }
+
+    .encounter .chapter-number,
+    .encounter h2 {
+      color: var(--encounter);
+    }
+
+    .acquaintance .chapter-number,
+    .acquaintance h2 {
+      color: var(--acquaintance);
+    }
+
+    .accompany .chapter-number,
+    .accompany h2 {
+      color: var(--accompany);
+    }
+
+    .noscript-note {
+      margin: 0;
+      padding: .65rem 1rem;
+      background: var(--surface-soft);
+      color: var(--muted);
+      text-align: center;
+      font-family: system-ui, sans-serif;
+      font-size: .85rem;
+    }
+
+    @media (max-width: 760px) {
+      .site-nav {
+        justify-content: space-between;
+      }
+
+      .story-gallery {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0 1.25rem .75rem;
+        margin-inline: -1.25rem;
+      }
+
+      .story-figure,
+      .story-figure:first-child {
+        flex: 0 0 min(82vw, 25rem);
+        aspect-ratio: 4 / 3;
+        scroll-snap-align: center;
+      }
+
+      .track-placeholder {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .track-placeholder button {
+        width: 100%;
+      }
+
+      .chapter-footer {
+        text-align: center;
+      }
+
+      .scene-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+      }
+
+      .scene-actions > * {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .scene.scene-entering,
+      .scene.scene-leaving {
+        animation: none;
+      }
+
+      .transition-veil {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要內容</a>
+
+  <nav class="site-nav" aria-label="閱讀進度">
+    <span class="site-title">TenjouHiko · First Anniversary</span>
+    <span class="scene-count" aria-live="polite">序章 · 1 / 5</span>
+  </nav>
+
+  <noscript>
+    <p class="noscript-note">JavaScript 未啟用，但妳仍然可以閱讀全部故事；正式播放器將在後續 MVP 加入。</p>
+  </noscript>
+
+  <header class="cover scene" id="prelude" data-scene-title="序章">
+    <div class="cover-inner">
+      <p class="eyebrow">First Anniversary · Three Impressions</p>
+      <h1>給妳的<br>三首印象曲</h1>
+      <p class="cover-lead">有些相遇像一束光，有些日常則慢慢成為旋律。這封信，收藏了相遇、相識與相處的三段故事。</p>
+      <p class="sound-note">這段旅程包含三首音樂，請在想聆聽時親自按下播放。</p>
+      <button class="primary-link scene-next" type="button" data-next="encounter">開啟這封信</button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="chapter encounter scene" id="encounter" data-scene-title="相遇" aria-labelledby="encounter-title" hidden>
+      <div class="chapter-inner">
+        <header class="chapter-heading">
+          <p class="chapter-number">Chapter 01</p>
+          <h2 id="encounter-title">相遇 <span>Encounter</span></h2>
+          <p class="chapter-quote">初見之時，光便有了形狀。</p>
+        </header>
+
+        <div class="story-copy">
+          <p>相遇的那一刻，妳便深深吸引了我。無論是陽光開朗的性格，還是甜美溫柔的聲音，都讓我留下深刻的印象。</p>
+          <p>這首歌記錄了初遇的悸動與溫暖，也藏著一個小小的期待：下一次相遇，又會認識怎樣的妳？</p>
+        </div>
+
+        <div class="story-gallery" aria-label="相遇故事圖片">
+          <figure class="story-figure">
+            <img src="assets/images/encounter/scene-01.png" alt="光芒照亮初次相遇的景象" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相遇 · 初見</strong><small>encounter/scene-01.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/encounter/scene-02.png" alt="柔和光線與琴鍵交織，象徵留下的溫柔印象" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相遇 · 印象</strong><small>encounter/scene-02.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/encounter/scene-03.png" alt="極光延伸向遠方，象徵期待再次相遇" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相遇 · 期待</strong><small>encounter/scene-03.png</small></span></figcaption>
+          </figure>
+        </div>
+
+        <section class="listening-card" aria-labelledby="track-01-title">
+          <h3 id="track-01-title">聽見初遇的光</h3>
+          <p>如果那一刻能被寫成旋律，也許會是這樣的聲音。</p>
+          <div class="track-placeholder">
+            <div><strong>印象曲 01</strong><small>track-01.mp3 → track-01.wav</small></div>
+            <button type="button" disabled>曲目尚未放入</button>
+          </div>
+        </section>
+
+        <footer class="scene-actions">
+          <button class="scene-back" type="button" data-back="prelude">返回序章</button>
+          <button class="next-link scene-next" type="button" data-next="acquaintance">前往第二章：相識</button>
+        </footer>
+      </div>
+    </section>
+
+    <section class="chapter acquaintance scene" id="acquaintance" data-scene-title="相識" aria-labelledby="acquaintance-title" hidden>
+      <div class="chapter-inner">
+        <header class="chapter-heading">
+          <p class="chapter-number">Chapter 02</p>
+          <h2 id="acquaintance-title">相識 <span>Acquaintance</span></h2>
+          <p class="chapter-quote">一點一滴，陌生的輪廓有了溫度。</p>
+        </header>
+
+        <div class="story-copy">
+          <p>從最初的推特互動，到後來的 YT 直播，每一次的話題、交談與分享，都讓我們一點一滴地認識彼此。</p>
+          <p>這首歌寫下了慢慢認識妳的喜悅。每多了解妳一點，心裡便多了一份開心，也多了一份溫暖。</p>
+        </div>
+
+        <div class="story-gallery" aria-label="相識故事圖片">
+          <figure class="story-figure">
+            <img src="assets/images/acquaintance/scene-01.png" alt="兩道訊息般的光點在夜空相遇" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相識 · 互動</strong><small>acquaintance/scene-01.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/acquaintance/scene-02.png" alt="夜晚螢幕映照出溫暖陪伴的景象" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相識 · 分享</strong><small>acquaintance/scene-02.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/acquaintance/scene-03.png" alt="星點逐漸連成一條溫柔軌跡" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相識 · 靠近</strong><small>acquaintance/scene-03.png</small></span></figcaption>
+          </figure>
+        </div>
+
+        <section class="listening-card" aria-labelledby="track-02-title">
+          <h3 id="track-02-title">聽見慢慢認識的喜悅</h3>
+          <p>那些一點一滴被收藏的片刻，也在不知不覺間譜成了一段旋律。</p>
+          <div class="track-placeholder">
+            <div><strong>印象曲 02</strong><small>track-02.mp3 → track-02.wav</small></div>
+            <button type="button" disabled>曲目尚未放入</button>
+          </div>
+        </section>
+
+        <footer class="scene-actions">
+          <button class="scene-back" type="button" data-back="encounter">返回第一章</button>
+          <button class="next-link scene-next" type="button" data-next="accompany">前往第三章：相處</button>
+        </footer>
+      </div>
+    </section>
+
+    <section class="chapter accompany scene" id="accompany" data-scene-title="相處" aria-labelledby="accompany-title" hidden>
+      <div class="chapter-inner">
+        <header class="chapter-heading">
+          <p class="chapter-number">Chapter 03</p>
+          <h2 id="accompany-title">相處 <span>Accompany</span></h2>
+          <p class="chapter-quote">有些陪伴不必喧嘩，只需要一直亮著。</p>
+        </header>
+
+        <div class="story-copy">
+          <p>隨著日子一天天過去，越來越能感受到妳的溫柔與關懷；也漸漸明白，堅強的妳，也會有需要陪伴的時候。</p>
+          <p>希望透過這首歌輕輕告訴妳：無論何時何地，我都會在這裡，默默支持妳，陪妳走過每一段日常、每一個周年。</p>
+        </div>
+
+        <div class="story-gallery" aria-label="相處故事圖片">
+          <figure class="story-figure">
+            <img src="assets/images/accompany/scene-01.png" alt="安靜日常中亮著柔光的房間" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相處 · 日常</strong><small>accompany/scene-01.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/accompany/scene-02.png" alt="雨夜窗邊被月光包圍的身影" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相處 · 理解</strong><small>accompany/scene-02.png</small></span></figcaption>
+          </figure>
+          <figure class="story-figure">
+            <img src="assets/images/accompany/scene-03.png" alt="兩道身影望向遠方不熄的燈火" loading="lazy" decoding="async">
+            <figcaption class="image-fallback"><span><strong>相處 · 陪伴</strong><small>accompany/scene-03.png</small></span></figcaption>
+          </figure>
+        </div>
+
+        <section class="listening-card" aria-labelledby="track-03-title">
+          <h3 id="track-03-title">聽見一句安靜的陪伴</h3>
+          <p>不必打擾，也不必回應；只是想讓這段旋律輕輕說一聲，我會在這裡。</p>
+          <div class="track-placeholder">
+            <div><strong>印象曲 03</strong><small>track-03.mp3 → track-03.wav</small></div>
+            <button type="button" disabled>曲目尚未放入</button>
+          </div>
+        </section>
+
+        <footer class="scene-actions">
+          <button class="scene-back" type="button" data-back="acquaintance">返回第二章</button>
+          <button class="next-link scene-next" type="button" data-next="finale">讀完最後的祝福</button>
+        </footer>
+      </div>
+    </section>
+
+    <section class="finale scene" id="finale" data-scene-title="終章" aria-labelledby="finale-title" hidden>
+      <div class="finale-inner">
+        <p class="eyebrow">Finale</p>
+        <h2 id="finale-title">願往後的日子<br>仍有新的樂章</h2>
+        <div class="finale-copy">
+          <p>謝謝這場相遇，讓我能在一次次的交談與分享中，慢慢認識現在的妳。</p>
+          <p>願這三段旋律，在妳需要的時候，化作一點微光；也願往後的每一個周年，都還有值得期待的日常，靜靜等待被聽見。</p>
+        </div>
+        <p class="finale-signoff">一周年快樂。</p>
+        <div class="scene-actions">
+          <button class="scene-back" type="button" data-back="accompany">返回第三章</button>
+          <button class="next-link scene-next" type="button" data-next="prelude">再次閱讀</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="transition-veil" aria-hidden="true">
+    <div class="transition-card">
+      <p class="transition-kicker">A New Impression</p>
+      <p class="transition-title"></p>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const figures = document.querySelectorAll('.story-figure');
+
+      figures.forEach((figure) => {
+        const image = figure.querySelector('img');
+        const markMissing = () => figure.classList.add('is-missing');
+
+        image.addEventListener('error', markMissing, { once: true });
+        if (image.complete && image.naturalWidth === 0) markMissing();
+      });
+
+      const scenes = [...document.querySelectorAll('.scene')];
+      const count = document.querySelector('.scene-count');
+      const veil = document.querySelector('.transition-veil');
+      const veilTitle = document.querySelector('.transition-title');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let currentScene = document.querySelector('.scene:not([hidden])');
+      let changing = false;
+
+      const updateProgress = (scene) => {
+        const index = scenes.indexOf(scene);
+        count.textContent = `${scene.dataset.sceneTitle} · ${index + 1} / ${scenes.length}`;
+        document.title = `${scene.dataset.sceneTitle}｜給妳的三首印象曲`;
+      };
+
+      const changeScene = (targetId) => {
+        const target = document.getElementById(targetId);
+        if (!target || target === currentScene || changing) return;
+
+        changing = true;
+        document.body.classList.add('is-transitioning');
+        veilTitle.textContent = target.dataset.sceneTitle;
+        currentScene.classList.add('scene-leaving');
+
+        const leaveDelay = reducedMotion.matches ? 0 : 260;
+        const revealDelay = reducedMotion.matches ? 0 : 420;
+
+        window.setTimeout(() => {
+          veil.classList.add('is-visible');
+        }, leaveDelay);
+
+        window.setTimeout(() => {
+          currentScene.hidden = true;
+          currentScene.classList.remove('scene-leaving');
+          target.hidden = false;
+          target.classList.add('scene-entering');
+          currentScene = target;
+          window.scrollTo({ top: 0, behavior: 'instant' });
+          updateProgress(target);
+
+          window.setTimeout(() => {
+            veil.classList.remove('is-visible');
+            target.classList.remove('scene-entering');
+            document.body.classList.remove('is-transitioning');
+            const heading = target.querySelector('h1, h2');
+            if (heading) {
+              heading.setAttribute('tabindex', '-1');
+              heading.focus({ preventScroll: true });
+            }
+            changing = false;
+          }, reducedMotion.matches ? 0 : 480);
+        }, revealDelay);
+      };
+
+      document.addEventListener('click', (event) => {
+        const next = event.target.closest('[data-next]');
+        const back = event.target.closest('[data-back]');
+        if (next) changeScene(next.dataset.next);
+        if (back) changeScene(back.dataset.back);
+      });
+
+      updateProgress(currentScene);
+    })();
+  </script>
+</body>
+</html>

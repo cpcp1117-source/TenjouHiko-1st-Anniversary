@@ -8,12 +8,14 @@
 
 ## MVP Status
 
-目前是 **MVP 0 — Planning Baseline**：
+目前是 **MVP 1 — Content Skeleton / Review**：
 
 - 已定義 MVP 階段與驗證門檻。
 - 已固定三首音訊與九張故事圖片的預留檔名。
 - 音訊不納入本階段版本控制，避免在未確認前上傳。
-- 尚未建立正式 `index.html`。
+- 已建立單一 `index.html` 的封面、三章故事、終章與章節轉場。
+- 一次只呈現一幕，必須由讀者點擊後才進入下一章。
+- 正等待內容語氣與章節節奏確認；播放器與正式視覺仍屬後續 MVP。
 
 詳細規劃請見 [docs/MVP_PLAN.md](docs/MVP_PLAN.md)；內容與素材對照請見 [docs/CONTENT_AND_ASSET_PLAN.md](docs/CONTENT_AND_ASSET_PLAN.md)。
 
@@ -44,4 +46,3 @@ docs/
 - Playback: User initiated; no autoplay.
 - Visual direction: Aurora night sky with translucent letter panels.
 - Hosting target: GitHub Pages.
-
