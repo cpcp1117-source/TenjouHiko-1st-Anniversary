@@ -2104,12 +2104,19 @@
               if (other !== audio && !other.paused) other.pause();
             });
             audio.play().catch(() => setTrackState(container, 'unavailable'));
-            window.setTimeout(() => {
+
+            let sourceChecks = 0;
+            const verifySource = () => {
               if (audio.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
                 audio.pause();
                 setTrackState(container, 'unavailable');
+                return;
               }
-            }, 400);
+              if (audio.readyState > 0 || audio.paused) return;
+              sourceChecks += 1;
+              if (sourceChecks < 10) window.setTimeout(verifySource, 300);
+            };
+            window.setTimeout(verifySource, 300);
           } else {
             audio.pause();
           }
