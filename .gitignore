@@ -1,0 +1,9 @@
+# Audio remains local until the owner explicitly approves public publishing.
+assets/audio/*.wav
+assets/audio/*.mp3
+
+# Local and generated QA artifacts.
+qa-output/
+screenshots/
+*.log
+
