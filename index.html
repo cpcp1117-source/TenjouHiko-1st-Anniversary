@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="以三段故事與三首鋼琴印象曲寫成的一周年祝賀。">
-  <title>給妳的三首印象曲｜一周年紀念</title>
+  <meta name="description" content="以三段故事與三首鋼琴印象曲寫成的一週年祝賀。">
+  <title>給最棒最溫柔的天上被子｜一週年紀念</title>
+  <link rel="icon" href="data:,">
   <style>
     :root {
       color-scheme: dark;
@@ -445,15 +446,6 @@
       box-shadow: inset 0 0 0 6px rgba(191, 233, 255, .04);
     }
 
-    .transition-kicker {
-      margin-bottom: .5rem;
-      color: var(--gold);
-      font-family: system-ui, sans-serif;
-      font-size: .75rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
     .transition-title {
       margin: 0;
       font-size: clamp(2rem, 8vw, 4rem);
@@ -690,10 +682,6 @@
       color: #143364;
       background: rgba(255, 249, 237, .9);
       box-shadow: 0 1.5rem 5rem rgba(3, 12, 29, .3), inset 0 0 0 5px rgba(255, 255, 255, .4);
-    }
-
-    .transition-kicker {
-      color: #9b6b20;
     }
 
     .transition-title {
@@ -1191,8 +1179,15 @@
     .listening-card > p,
     .encounter .listening-card p { margin: 0; color: inherit; opacity: .72; }
 
+    .listening-card > h3,
+    .listening-card > p {
+      display: flex;
+      align-items: center;
+    }
+
     .track-placeholder {
       grid-column: 1 / -1;
+      justify-content: flex-end;
       padding-top: 1.25rem;
       border-top: 1px solid currentColor;
       font-family: var(--sans);
@@ -1269,7 +1264,6 @@
       box-shadow: none;
     }
 
-    .transition-kicker { color: #946829; font-family: var(--sans); }
     .transition-title { color: #173557; font-weight: 400; }
 
     @media (max-width: 760px) {
@@ -1426,7 +1420,6 @@
       opacity: 0;
     }
 
-    .transition-kicker,
     .transition-title { color: inherit; }
 
     .transition-title span {
@@ -1653,6 +1646,7 @@
       display: flex;
       align-items: center;
       gap: .85rem;
+      width: 100%;
     }
 
     .track-toggle {
@@ -1685,9 +1679,11 @@
       border-color: var(--ice, #bfe9ff);
     }
 
-    .track-state-label {
-      flex: 0 0 auto;
+    .track-time {
+      flex: 0 0 3.25rem;
       font-size: .8rem;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
       color: inherit;
       opacity: .65;
     }
@@ -1739,10 +1735,10 @@
     <p class="noscript-note">JavaScript 未啟用，但妳仍然可以閱讀全部故事；正式播放器將在後續 MVP 加入。</p>
   </noscript>
 
-  <header class="cover scene" id="prelude" data-scene-title="序章">
+  <header class="cover scene" id="prelude" data-scene-title="序章" data-scene-title-en="Prelude">
     <div class="cover-inner">
-      <p class="eyebrow">First Anniversary · Three Impressions</p>
-      <h1>給妳的<br>三首印象曲</h1>
+      <p class="eyebrow">First Anniversary Celebration</p>
+      <h1>給最棒最溫柔的<br>天上被子</h1>
       <p class="cover-lead">有些相遇像一束光，有些日常則慢慢成為旋律。這封信，收藏了相遇、相識與相處的三段故事。</p>
       <p class="sound-note">這段旅程包含三首音樂，請在想聆聽時親自按下播放。</p>
       <button class="primary-link scene-next" type="button" data-next="encounter">開啟這封信</button>
@@ -1750,7 +1746,7 @@
   </header>
 
   <main id="main-content">
-    <section class="chapter encounter scene" id="encounter" data-scene-title="相遇" aria-labelledby="encounter-title" hidden>
+    <section class="chapter encounter scene" id="encounter" data-scene-title="相遇" data-scene-title-en="Encounter" aria-labelledby="encounter-title" hidden>
       <div class="chapter-inner">
         <header class="chapter-heading">
           <p class="chapter-number">Chapter 01</p>
@@ -1787,20 +1783,18 @@
         <section class="listening-card" aria-labelledby="track-01-title">
           <h3 id="track-01-title">聽見初遇的光</h3>
           <p>如果那一刻能被寫成旋律，也許會是這樣的聲音。</p>
-          <div class="track-placeholder">
-            <div><strong>印象曲 01</strong><small>相遇Encounter.mp3 → 相遇Encounter.wav</small></div>
+          <div class="track-placeholder" data-track-name="相遇音樂">
             <div class="track-control">
-              <button class="track-toggle" type="button" aria-label="播放印象曲 01">
+              <button class="track-toggle" type="button" aria-label="播放相遇音樂">
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
-              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 01 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="track-progress" role="slider" tabindex="0" aria-label="相遇音樂播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <span class="track-progress-track" aria-hidden="true"></span>
                 <span class="track-progress-fill" aria-hidden="true"></span>
               </div>
-              <span class="track-state-label">尚未播放</span>
+              <span class="track-time" aria-label="目前播放時間 00:00">00:00</span>
               <audio class="track-audio" preload="none">
-                <source src="assets/audio/相遇Encounter.mp3" type="audio/mpeg">
-                <source src="assets/audio/相遇Encounter.wav" type="audio/wav">
+                <source src="assets/audio/相遇(Encounter).wav" type="audio/wav">
               </audio>
             </div>
           </div>
@@ -1813,12 +1807,12 @@
       </div>
     </section>
 
-    <section class="chapter acquaintance scene" id="acquaintance" data-scene-title="相識" aria-labelledby="acquaintance-title" hidden>
+    <section class="chapter acquaintance scene" id="acquaintance" data-scene-title="相識" data-scene-title-en="Acquaintance" aria-labelledby="acquaintance-title" hidden>
       <div class="chapter-inner">
         <header class="chapter-heading">
           <p class="chapter-number">Chapter 02</p>
           <h2 id="acquaintance-title">相識 <span>Acquaintance</span></h2>
-          <p class="chapter-quote">一點一滴，陌生的輪廓有了溫度。</p>
+          <p class="chapter-quote">一點一滴，陌生的輪廓有了形象。</p>
         </header>
 
         <div class="story-copy">
@@ -1848,22 +1842,20 @@
         </div>
 
         <section class="listening-card" aria-labelledby="track-02-title">
-          <h3 id="track-02-title">聽見慢慢認識的喜悅</h3>
+          <h3 id="track-02-title">印象中的妳，慢慢譜成旋律</h3>
           <p>那些一點一滴被收藏的片刻，也在不知不覺間譜成了一段旋律。</p>
-          <div class="track-placeholder">
-            <div><strong>印象曲 02</strong><small>相識Acquaintance.mp3 → 相識Acquaintance.wav</small></div>
+          <div class="track-placeholder" data-track-name="相識音樂">
             <div class="track-control">
-              <button class="track-toggle" type="button" aria-label="播放印象曲 02">
+              <button class="track-toggle" type="button" aria-label="播放相識音樂">
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
-              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 02 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="track-progress" role="slider" tabindex="0" aria-label="相識音樂播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <span class="track-progress-track" aria-hidden="true"></span>
                 <span class="track-progress-fill" aria-hidden="true"></span>
               </div>
-              <span class="track-state-label">尚未播放</span>
+              <span class="track-time" aria-label="目前播放時間 00:00">00:00</span>
               <audio class="track-audio" preload="none">
-                <source src="assets/audio/相識Acquaintance.mp3" type="audio/mpeg">
-                <source src="assets/audio/相識Acquaintance.wav" type="audio/wav">
+                <source src="assets/audio/相識(Acquaintance).wav" type="audio/wav">
               </audio>
             </div>
           </div>
@@ -1876,7 +1868,7 @@
       </div>
     </section>
 
-    <section class="chapter accompany scene" id="accompany" data-scene-title="相處" aria-labelledby="accompany-title" hidden>
+    <section class="chapter accompany scene" id="accompany" data-scene-title="相處" data-scene-title-en="Accompany" aria-labelledby="accompany-title" hidden>
       <div class="chapter-inner">
         <header class="chapter-heading">
           <p class="chapter-number">Chapter 03</p>
@@ -1886,7 +1878,7 @@
 
         <div class="story-copy">
           <p>隨著日子一天天過去，越來越能感受到妳的溫柔與關懷；也漸漸明白，堅強的妳，也會有需要陪伴的時候。</p>
-          <p>希望透過這首歌輕輕告訴妳：無論何時何地，我都會在這裡，默默支持妳，陪妳走過每一段日常、每一個周年。</p>
+          <p>希望透過這首歌輕輕告訴妳：無論何時何地，我都會在這裡，默默支持妳，陪妳走過每一段日常、每一個週年。</p>
         </div>
 
         <div class="story-gallery" aria-label="相處故事圖片">
@@ -1911,22 +1903,20 @@
         </div>
 
         <section class="listening-card" aria-labelledby="track-03-title">
-          <h3 id="track-03-title">聽見一句安靜的陪伴</h3>
-          <p>不必打擾，也不必回應；只是想讓這段旋律輕輕說一聲，我會在這裡。</p>
-          <div class="track-placeholder">
-            <div><strong>印象曲 03</strong><small>相處Accompany.mp3 → 相處Accompany.wav</small></div>
+          <h3 id="track-03-title">Still By Your Side</h3>
+          <p>"Whatever comes, I will stay by your side."</p>
+          <div class="track-placeholder" data-track-name="相處音樂">
             <div class="track-control">
-              <button class="track-toggle" type="button" aria-label="播放印象曲 03">
+              <button class="track-toggle" type="button" aria-label="播放相處音樂">
                 <span class="track-icon" aria-hidden="true">▶</span>
               </button>
-              <div class="track-progress" role="slider" tabindex="0" aria-label="印象曲 03 播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="track-progress" role="slider" tabindex="0" aria-label="相處音樂播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <span class="track-progress-track" aria-hidden="true"></span>
                 <span class="track-progress-fill" aria-hidden="true"></span>
               </div>
-              <span class="track-state-label">尚未播放</span>
+              <span class="track-time" aria-label="目前播放時間 00:00">00:00</span>
               <audio class="track-audio" preload="none">
-                <source src="assets/audio/相處Accompany.mp3" type="audio/mpeg">
-                <source src="assets/audio/相處Accompany.wav" type="audio/wav">
+                <source src="assets/audio/相伴(Accompany).wav" type="audio/wav">
               </audio>
             </div>
           </div>
@@ -1934,20 +1924,20 @@
 
         <footer class="scene-actions">
           <button class="scene-back" type="button" data-back="acquaintance">返回第二章</button>
-          <button class="next-link scene-next" type="button" data-next="finale">讀完最後的祝福</button>
+          <button class="next-link scene-next" type="button" data-next="finale">最後的祝福</button>
         </footer>
       </div>
     </section>
 
-    <section class="finale scene" id="finale" data-scene-title="終章" aria-labelledby="finale-title" hidden>
+    <section class="finale scene" id="finale" data-scene-title="終章" data-scene-title-en="Finale" aria-labelledby="finale-title" hidden>
       <div class="finale-inner">
         <p class="eyebrow">Finale</p>
-        <h2 id="finale-title">願往後的日子<br>仍有新的樂章</h2>
+        <h2 id="finale-title">願往後的回憶，<br>都能成為溫柔的樂章</h2>
         <div class="finale-copy">
           <p>謝謝這場相遇，讓我能在一次次的交談與分享中，慢慢認識現在的妳。</p>
-          <p>願這三段旋律，在妳需要的時候，化作一點微光；也願往後的每一個周年，都還有值得期待的日常，靜靜等待被聽見。</p>
+          <p>願這三段旋律，在妳需要的時候，化作一點微光；也願往後的日子，仍有新的樂章持續譜寫每一個值得期待、值得記錄的日常。</p>
         </div>
-        <p class="finale-signoff">一周年快樂。</p>
+        <p class="finale-signoff">一週年快樂 被子大寶貝 !</p>
         <div class="scene-actions">
           <button class="scene-back" type="button" data-back="accompany">返回第三章</button>
           <button class="next-link scene-next" type="button" data-next="prelude">再次閱讀</button>
@@ -1960,7 +1950,6 @@
     <div class="transition-aurora" aria-hidden="true"></div>
     <span class="transition-light" aria-hidden="true"></span>
     <div class="transition-card">
-      <p class="transition-kicker">A New Impression</p>
       <p class="transition-title"></p>
     </div>
   </div>
@@ -2079,6 +2068,21 @@
       const trackAudios = [...document.querySelectorAll('.track-audio')];
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+      const formatTrackTime = (seconds) => {
+        if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+        const wholeSeconds = Math.floor(seconds);
+        const minutes = Math.floor(wholeSeconds / 60);
+        const remainingSeconds = wholeSeconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+      };
+
+      const updateTrackTime = (audio, container) => {
+        const time = formatTrackTime(audio.currentTime);
+        const timeLabel = container.querySelector('.track-time');
+        timeLabel.textContent = time;
+        timeLabel.setAttribute('aria-label', `目前播放時間 ${time}`);
+      };
+
       const updateTrackProgress = (audio, container) => {
         const progress = container.querySelector('.track-progress');
         const fill = container.querySelector('.track-progress-fill');
@@ -2086,6 +2090,7 @@
         const pct = Math.min(100, Math.max(0, ratio * 100));
         fill.style.width = `${pct}%`;
         progress.setAttribute('aria-valuenow', Math.round(pct));
+        updateTrackTime(audio, container);
       };
 
       const seekFromClientX = (audio, progress, clientX) => {
@@ -2096,20 +2101,26 @@
       };
 
       const TRACK_STATE_TEXT = {
-        idle: { icon: '▶', label: '尚未播放', verb: '播放' },
-        playing: { icon: '❚❚', label: '播放中', verb: '暫停' },
-        paused: { icon: '▶', label: '已暫停', verb: '播放' },
-        ended: { icon: '↺', label: '再次聆聽', verb: '再次播放' },
-        unavailable: { icon: '▶', label: '曲目尚未放入', verb: '播放' },
+        idle: { icon: '▶', verb: '播放' },
+        playing: { icon: '❚❚', verb: '暫停' },
+        paused: { icon: '▶', verb: '播放' },
+        ended: { icon: '↺', verb: '再次播放' },
+        unavailable: { icon: '▶', verb: '播放' },
       };
 
       const setTrackState = (container, state) => {
         container.dataset.audioState = state;
-        const trackName = container.querySelector('strong').textContent;
+        const trackName = container.dataset.trackName;
         const toggle = container.querySelector('.track-toggle');
         const info = TRACK_STATE_TEXT[state];
         container.querySelector('.track-icon').textContent = info.icon;
-        container.querySelector('.track-state-label').textContent = info.label;
+        if (state === 'unavailable') {
+          const timeLabel = container.querySelector('.track-time');
+          timeLabel.textContent = '--:--';
+          timeLabel.setAttribute('aria-label', '曲目尚未放入');
+        } else {
+          updateTrackTime(container.querySelector('.track-audio'), container);
+        }
         toggle.setAttribute('aria-label', `${info.verb}${trackName}`);
         toggle.disabled = state === 'unavailable';
       };
@@ -2189,7 +2200,6 @@
       const scenes = [...document.querySelectorAll('.scene')];
       const count = document.querySelector('.scene-count');
       const veil = document.querySelector('.transition-veil');
-      const veilKicker = document.querySelector('.transition-kicker');
       const veilTitle = document.querySelector('.transition-title');
       let currentScene = document.querySelector('.scene:not([hidden])');
       let changing = false;
@@ -2197,7 +2207,7 @@
       const updateProgress = (scene) => {
         const index = scenes.indexOf(scene);
         count.textContent = `${scene.dataset.sceneTitle} · ${index + 1} / ${scenes.length}`;
-        document.title = `${scene.dataset.sceneTitle}｜給妳的三首印象曲`;
+        document.title = `${scene.dataset.sceneTitle}｜給最棒最溫柔的天上被子`;
         document.body.classList.toggle('is-prelude', scene.id === 'prelude');
       };
 
@@ -2210,8 +2220,7 @@
         const isOpening = currentScene.id === 'prelude' && target.id === 'encounter';
         document.body.classList.add('is-transitioning');
         document.body.classList.toggle('is-opening', isOpening);
-        veilKicker.textContent = isOpening ? 'Chapter 01' : 'A New Impression';
-        veilTitle.innerHTML = isOpening ? '相遇 <span>Encounter</span>' : target.dataset.sceneTitle;
+        veilTitle.innerHTML = `${target.dataset.sceneTitle} <span>${target.dataset.sceneTitleEn}</span>`;
 
         currentScene.classList.add('scene-leaving');
 

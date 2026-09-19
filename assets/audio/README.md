@@ -1,10 +1,9 @@
 # Audio Placement
 
-請由專案擁有者自行放入以下檔案：
+目前網站使用並發布以下 WAV：
 
-- `track-01.wav`；`track-01.mp3` 可選。
-- `track-02.wav`；`track-02.mp3` 可選。
-- `track-03.wav`；`track-03.mp3` 可選。
+- `相遇(Encounter).wav`
+- `相識(Acquaintance).wav`
+- `相伴(Accompany).wav`
 
-目前 `.gitignore` 會排除 WAV 與 MP3。正式公開發布前，必須由專案擁有者明確確認後，才移除忽略規則並提交音訊。
-
+`.gitignore` 仍排除其他 WAV 與 MP3，只允許上述三個已獲專案擁有者明確同意公開發布的檔案。

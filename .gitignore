@@ -1,9 +1,11 @@
 # Audio remains local until the owner explicitly approves public publishing.
 assets/audio/*.wav
 assets/audio/*.mp3
+!assets/audio/相遇(Encounter).wav
+!assets/audio/相識(Acquaintance).wav
+!assets/audio/相伴(Accompany).wav
 
 # Local and generated QA artifacts.
 qa-output/
 screenshots/
 *.log
-
